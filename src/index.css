@@ -1,0 +1,190 @@
+@import 'tailwindcss';
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Lantix — dirección "plano técnico / blueprint".
+   Modo claro  = plano CAD en papel frío (líneas navy sobre papel).
+   Modo oscuro = blueprint clásico (líneas cian sobre azul profundo).
+   El tema sigue al sistema operativo vía prefers-color-scheme.
+   ────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --color-ink: #0a1733;
+  --color-ink-soft: #2a3a5c;
+  --color-paper: #eef1f7;
+  --color-blueprint: #081427;
+  --color-blueprint-soft: #0c1d39;
+  --color-cyan: #22d3ee;
+  --color-blue: #2563eb;
+}
+
+:root {
+  /* Tinta, papel y líneas de retícula para el tema claro */
+  --bp-bg: #eef1f7;
+  --bp-fg: #0a1733;
+  --bp-muted: #51618a;
+  --bp-line: rgba(10, 23, 51, 0.06);
+  --bp-line-strong: rgba(10, 23, 51, 0.11);
+  --bp-rule: rgba(10, 23, 51, 0.14);
+  --bp-accent: #1b4dd8;
+  --bp-panel: rgba(255, 255, 255, 0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bp-bg: #081427;
+    --bp-fg: #e7eefc;
+    --bp-muted: #7e93bf;
+    --bp-line: rgba(56, 189, 248, 0.07);
+    --bp-line-strong: rgba(56, 189, 248, 0.13);
+    --bp-rule: rgba(120, 180, 240, 0.18);
+    --bp-accent: #38d9f0;
+    --bp-panel: rgba(13, 31, 58, 0.5);
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bp-bg);
+    color: var(--bp-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Retícula de ingeniería fija detrás de todo el contenido */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--bp-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bp-line) 1px, transparent 1px),
+      linear-gradient(var(--bp-line-strong) 1px, transparent 1px),
+      linear-gradient(90deg, var(--bp-line-strong) 1px, transparent 1px);
+    background-size:
+      28px 28px,
+      28px 28px,
+      140px 140px,
+      140px 140px;
+  }
+
+  ::selection {
+    background: var(--bp-accent);
+    color: var(--bp-bg);
+  }
+}
+
+@layer components {
+  .bp-rule {
+    border-color: var(--bp-rule);
+  }
+
+  .bp-muted {
+    color: var(--bp-muted);
+  }
+
+  .bp-accent {
+    color: var(--bp-accent);
+  }
+
+  .hover-accent {
+    transition: color 0.2s ease;
+  }
+  .hover-accent:hover {
+    color: var(--bp-accent);
+  }
+
+  /* Etiqueta monoespaciada tipo anotación de plano */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bp-accent);
+  }
+
+  /* Panel/lámina técnica con marco fino */
+  .plate {
+    border: 1px solid var(--bp-rule);
+    background: var(--bp-panel);
+    backdrop-filter: blur(2px);
+  }
+
+  /* Marcas de registro en las esquinas de una lámina */
+  .corner-ticks::before,
+  .corner-ticks::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: var(--bp-rule);
+    border-style: solid;
+  }
+  .corner-ticks::before {
+    top: -1px;
+    left: -1px;
+    border-width: 1px 0 0 1px;
+  }
+  .corner-ticks::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 1px 1px 0;
+  }
+
+  /* Subrayado animado de las filas del índice de capacidades */
+  .index-row {
+    position: relative;
+  }
+  .index-row::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 0;
+    background: var(--bp-accent);
+    transition: width 0.45s cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .index-row:hover::after,
+  .index-row:focus-within::after {
+    width: 100%;
+  }
+}
+
+/* Aparición secuencial al cargar */
+@keyframes bp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: bp-rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise {
+    animation: none;
+  }
+  .index-row::after {
+    transition: none;
+  }
+}
