@@ -302,8 +302,8 @@ function App() {
               Ingeniería de software a medida
             </p>
             <h1 className="mt-6 max-w-xl text-balance font-display text-5xl font-bold leading-[1.04] tracking-tight sm:text-6xl">
-              Construimos tu software como se construye un edificio:
-              <span className="bp-accent"> con plano.</span>
+              Tu idea, convertida en el software que
+              <span className="bp-accent"> hace crecer tu negocio.</span>
             </h1>
             <p className="mt-7 max-w-md text-lg leading-relaxed bp-muted">
               En Lantix diseñamos y desarrollamos los sistemas y aplicaciones
