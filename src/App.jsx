@@ -48,16 +48,21 @@ const capabilities = [
   },
   {
     ref: 'S—04',
+    title: 'Inteligencia artificial',
+    desc: 'Atiende clientes 24/7 y libera a tu equipo de tareas repetitivas, con IA aplicada donde da resultados.',
+  },
+  {
+    ref: 'S—05',
     title: 'Sistemas conectados',
     desc: 'Tus pagos, facturación y herramientas compartiendo información sin trabajo manual.',
   },
   {
-    ref: 'S—05',
+    ref: 'S—06',
     title: 'Siempre disponible',
     desc: 'Tu sistema en línea las 24 horas: rápido, seguro y con costos bajo control.',
   },
   {
-    ref: 'S—06',
+    ref: 'S—07',
     title: 'Soporte & evolución',
     desc: 'Medimos, mejoramos y acompañamos el crecimiento del producto.',
   },
@@ -139,6 +144,14 @@ const faqs = [
   {
     q: '¿Y si ya tengo un sistema?',
     a: 'Lo evaluamos juntos. A veces conviene mejorarlo o conectarlo con otras herramientas; otras, reemplazarlo por etapas sin frenar tu operación.',
+  },
+  {
+    q: '¿La inteligencia artificial sirve para mi negocio?',
+    a: 'Probablemente sí, pero no por moda. Buscamos dónde ahorra tiempo o dinero de verdad —atender clientes, clasificar documentos, resumir información— y la medimos como cualquier otra inversión.',
+  },
+  {
+    q: '¿Trabajan con empresas pequeñas?',
+    a: 'Sí. Diseñamos la solución al tamaño del problema: puedes empezar con algo pequeño que dé resultados pronto y crecer desde ahí.',
   },
   {
     q: '¿Qué necesito para empezar?',
