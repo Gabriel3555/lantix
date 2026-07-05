@@ -435,23 +435,6 @@ function App() {
                   funcionando mañana.
                 </p>
               </div>
-              {/* Interlocutor con rostro: sustituye las iniciales por una foto real cuando la tengas */}
-              <div className="mt-4 plate corner-ticks relative flex items-center gap-4 p-5">
-                <div
-                  className="flex h-14 w-14 shrink-0 items-center justify-center border bp-rule font-display text-lg font-semibold bp-accent"
-                  style={{ background: 'var(--bp-bg)' }}
-                  aria-hidden="true"
-                >
-                  GB
-                </div>
-                <div>
-                  <p className="font-display text-base font-semibold">Gabriel Barrantes</p>
-                  <p className="mt-0.5 text-sm leading-relaxed bp-muted">
-                    Ingeniero a cargo de tu proyecto. Del primer mensaje a la
-                    entrega, hablas siempre con la misma persona.
-                  </p>
-                </div>
-              </div>
             </div>
 
             <ul className="grid gap-px border bp-rule sm:grid-cols-2" style={{ background: 'var(--bp-rule)' }}>
