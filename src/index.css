@@ -21,7 +21,9 @@
   --color-blue: #2563eb;
 }
 
-:root {
+/* El tema sigue al sistema por defecto; data-theme (toggle del header) lo fuerza. */
+:root,
+:root[data-theme='light'] {
   /* Tinta, papel y líneas de retícula para el tema claro */
   --bp-bg: #eef1f7;
   --bp-fg: #0a1733;
@@ -31,10 +33,11 @@
   --bp-rule: rgba(10, 23, 51, 0.14);
   --bp-accent: #1b4dd8;
   --bp-panel: rgba(255, 255, 255, 0.55);
+  --bp-glow: rgba(27, 77, 216, 0.16);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --bp-bg: #081427;
     --bp-fg: #e7eefc;
     --bp-muted: #7e93bf;
@@ -43,7 +46,20 @@
     --bp-rule: rgba(120, 180, 240, 0.18);
     --bp-accent: #38d9f0;
     --bp-panel: rgba(13, 31, 58, 0.5);
+    --bp-glow: rgba(34, 211, 238, 0.22);
   }
+}
+
+:root[data-theme='dark'] {
+  --bp-bg: #081427;
+  --bp-fg: #e7eefc;
+  --bp-muted: #7e93bf;
+  --bp-line: rgba(56, 189, 248, 0.07);
+  --bp-line-strong: rgba(56, 189, 248, 0.13);
+  --bp-rule: rgba(120, 180, 240, 0.18);
+  --bp-accent: #38d9f0;
+  --bp-panel: rgba(13, 31, 58, 0.5);
+  --bp-glow: rgba(34, 211, 238, 0.22);
 }
 
 @layer base {
@@ -141,6 +157,14 @@
     border-width: 0 1px 1px 0;
   }
 
+  /* Celdas de retícula (principios, fases, FAQ) con respuesta sutil al hover */
+  .cell-hover {
+    transition: background-color 0.25s ease;
+  }
+  .cell-hover:hover {
+    background-color: var(--bp-panel) !important;
+  }
+
   /* Subrayado animado de las filas del índice de capacidades */
   .index-row {
     position: relative;
@@ -177,6 +201,19 @@
   animation: bp-rise 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) both;
 }
 
+/* Aparición de secciones al hacer scroll (IntersectionObserver añade .is-visible) */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -185,6 +222,11 @@
     animation: none;
   }
   .index-row::after {
+    transition: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
     transition: none;
   }
 }
